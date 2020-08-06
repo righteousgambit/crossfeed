@@ -227,12 +227,10 @@
       <li><code class="language-plaintext highlighter-rouge">docker-compose up --build</code></li>
     </ul>
   </li>
-  <li>
-    <p>Generate DB schema:</p>
-
+  <li>Generate DB schema:
     <ul>
-      <li><code class="language-plaintext highlighter-rouge">docker-compose exec backend npx sls invoke local -f syncdb</code></li>
-      <li>(append <code class="language-plaintext highlighter-rouge">-d dangerouslyforce</code> to drop and recreate)</li>
+      <li><code class="language-plaintext highlighter-rouge">cd backend &amp;&amp; npm run syncdb</code></li>
+      <li>(run <code class="language-plaintext highlighter-rouge">npm run syncdb -- -d dangerouslyforce</code> to drop and recreate)</li>
     </ul>
   </li>
   <li>
@@ -253,12 +251,12 @@
 <p>The scheduler lambda function is set to run on an interval or in response to non-http events. To run it manually, run the following command:</p>
 
 <ul>
-  <li><code class="language-plaintext highlighter-rouge">docker-compose exec scheduler npx serverless invoke local -f scheduler</code></li>
+  <li><code class="language-plaintext highlighter-rouge">cd backend &amp;&amp; npm run scheduler</code></li>
 </ul>
 
 <h3 id="running-tests">Running tests</h3>
 
-<p>To run tests, first make sure you have already started crossfeed with <code class="language-plaintext highlighter-rouge">docker-compose</code> . Then run:</p>
+<p>To run tests, first make sure you have already started crossfeed with <code class="language-plaintext highlighter-rouge">docker-compose</code>. Then run:</p>
 
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cd </span>backend
 npm <span class="nb">test</span>
