@@ -248,11 +248,11 @@
 
 <h3 id="running-the-scheduler-lambda-function-locally">Running the scheduler lambda function locally</h3>
 
-<p>The scheduler lambda function is set to run on an interval or in response to non-http events. To run it manually, run the following command:</p>
+<p>The scheduler lambda function is set to run on a 5-minute interval when deployed.</p>
 
-<ul>
-  <li><code class="language-plaintext highlighter-rouge">cd backend &amp;&amp; npm run scheduler</code></li>
-</ul>
+<p>When running locally, the scheduler function runs every 1 minute, for convenience. To run it manually, click on the “Manually run scheduler” button on the Scans page.</p>
+
+<p>You can check scheduler logs locally by checking the backend container logs.</p>
 
 <h3 id="running-tests">Running tests</h3>
 
@@ -281,10 +281,7 @@ when worker code changes.</p>
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>npm run build-worker
 </code></pre></div></div>
 
-<p>To run the scheduler:</p>
-
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker-compose <span class="nb">exec </span>scheduler npx serverless invoke <span class="nb">local</span> <span class="nt">-f</span> scheduler
-</code></pre></div></div>
+<p>To run the scheduler, click on “Manually run scheduler” on the Scans page.</p>
 
 <p>You can then run <code class="language-plaintext highlighter-rouge">docker ps</code> or ( <code class="language-plaintext highlighter-rouge">docker ps -a | head -n 3</code> ) to view running / stopped Docker containers,
 and check their logs with <code class="language-plaintext highlighter-rouge">docker logs [containername]</code> .</p>
