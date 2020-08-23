@@ -254,8 +254,22 @@ aws cloudfront create-invalidation <span class="nt">--distribution-id</span> ELM
 
 <ul>
   <li>Set up a custom domain for the frontend and create an ACM certificate for it</li>
+  <li>Generate a login.gov RSA key</li>
   <li>Set initial SSM variables</li>
 </ul>
+
+<h3 id="generate-logingov-rsa-key">Generate login.gov RSA key</h3>
+
+<p>Run the following to generate a login.gov RSA key (preferably in a non-git directory outside of crossfeed!):</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>openssl genrsa <span class="nt">-out</span> private.pem 2048
+openssl req <span class="nt">-newkey</span> rsa:2048 <span class="nt">-nodes</span> <span class="nt">-days</span> 3650 <span class="nt">-out</span> csr.pem
+openssl x509 <span class="nt">-req</span> <span class="nt">-in</span> csr.pem <span class="nt">-out</span> cert.pem <span class="nt">-signkey</span> private.pem
+npm <span class="nb">install</span> <span class="nt">-g</span> pem-jwk
+pem-jwk private.pem <span class="o">&gt;</span> private.jwk
+</code></pre></div></div>
+
+<p>Visit <a href="https://dashboard.int.identitysandbox.gov/">the Login.gov sandbox dashboard</a> to create a login.gov application, providing <code class="language-plaintext highlighter-rouge">cert.pem</code> as the public certificate. Copy the contents of <code class="language-plaintext highlighter-rouge">private.jwk</code> to use as your <code class="language-plaintext highlighter-rouge">LOGIN_GOV_JWT_KEY</code> in the next step.</p>
 
 <h3 id="set-initial-ssm-variables">Set initial SSM variables</h3>
 
@@ -270,6 +284,7 @@ aws cloudfront create-invalidation <span class="nt">--distribution-id</span> ELM
   <li><code class="language-plaintext highlighter-rouge">/crossfeed/staging/LOGIN_GOV_REDIRECT_URI</code></li>
   <li><code class="language-plaintext highlighter-rouge">/crossfeed/staging/LOGIN_GOV_BASE_URL</code></li>
   <li><code class="language-plaintext highlighter-rouge">/crossfeed/staging/LOGIN_GOV_JWT_KEY</code></li>
+  <li><code class="language-plaintext highlighter-rouge">/crossfeed/staging/LOGIN_GOV_ISSUER</code></li>
 </ul>
 
 <p>Then, run <code class="language-plaintext highlighter-rouge">cp stage.config .env</code> and change the variables in <code class="language-plaintext highlighter-rouge">.env</code> to use a bucket you have access to to store state.</p>
