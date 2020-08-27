@@ -1,5 +1,5 @@
 import React, { useState, useCallback, useEffect } from 'react';
-import { API } from 'aws-amplify';
+import { API, Auth } from 'aws-amplify';
 import { AuthContext, AuthUser, CurrentOrganization } from './AuthContext';
 import { User, Organization } from 'types';
 import { useHistory } from 'react-router-dom';
@@ -12,6 +12,7 @@ const baseHeaders: HeadersInit = {
 
 export const AuthContextProvider: React.FC = ({ children }) => {
   const [user, setUser] = useState<AuthUser | null>();
+  const [unverifiedUser, setUnverifiedUser] = useState<any>();
   const [currentOrganization, setCurrentOrganization] = useState<
     CurrentOrganization
   >();
@@ -75,6 +76,31 @@ export const AuthContextProvider: React.FC = ({ children }) => {
     localStorage.setItem('token', token);
     localStorage.setItem('user', JSON.stringify(userCopy));
     setUser(userCopy);
+  };
+
+  const loginWithCognito = async (username: string, password: string) => {
+    const user = await Auth.signIn(username, password);
+    if (user.challengeName === 'NEW_PASSWORD_REQUIRED') {
+      setUnverifiedUser(user);
+      history.push('/create-password');
+    } else {
+      setUser(user);
+    }
+    return user;
+  };
+
+  const resetPassword = async (
+    currentpassword: string,
+    newpassword: string
+  ) => {
+    const user = await Auth.currentAuthenticatedUser();
+    await Auth.changePassword(user, currentpassword, newpassword);
+  };
+
+  const completePassword = async (password: string) => {
+    const result = await Auth.completeNewPassword(unverifiedUser, password, {});
+    setUnverifiedUser(undefined);
+    setUser(result);
   };
 
   const refreshUser = async () => {
@@ -178,7 +204,10 @@ export const AuthContextProvider: React.FC = ({ children }) => {
         user,
         currentOrganization,
         login,
+        loginWithCognito,
         logout,
+        resetPassword,
+        completePassword: unverifiedUser ? completePassword : undefined,
         apiGet,
         apiPost,
         apiPut,

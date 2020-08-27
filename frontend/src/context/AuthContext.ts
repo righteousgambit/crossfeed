@@ -11,7 +11,10 @@ export interface CurrentOrganization extends Organization {
 
 export interface AuthContextType {
   login(token: string, user: User): Promise<any>;
+  loginWithCognito(username: string, password: string): Promise<any>;
   logout(): Promise<void>;
+  resetPassword(current: string, newpass: string): Promise<void>;
+  completePassword?(password: string): Promise<void>;
   apiGet<T extends object = any>(path: string, init?: any): Promise<T>;
   apiPost<T extends object = any>(path: string, init: any): Promise<T>;
   apiPut<T extends object = any>(path: string, init: any): Promise<T>;
@@ -26,7 +29,9 @@ export interface AuthContextType {
 /* istanbul ignore next */
 export const defaultAuthContext: AuthContextType = {
   login: async () => {},
+  loginWithCognito: async () => {},
   logout: async () => {},
+  resetPassword: async () => {},
   apiGet: async <T>() => ({} as T),
   apiPost: async <T>() => ({} as T),
   apiPut: async <T>() => ({} as T),

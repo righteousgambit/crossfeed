@@ -16,7 +16,11 @@ import {
   Users,
   Settings,
   Vulnerabilities,
-  TermsOfUse
+  TermsOfUse,
+  AuthRegister,
+  AuthRegisterConfirm,
+  AuthPasswordReset,
+  AuthCreatePassword
 } from 'pages';
 import { AuthRoute, AuthRedirectRoute, Layout } from 'components';
 import './styles.scss';
@@ -29,7 +33,12 @@ Amplify.configure({
         endpoint: process.env.REACT_APP_API_URL
       }
     ]
-  }
+  },
+  Auth: process.env.REACT_APP_USE_COGNITO ? {
+    region: 'us-east-1',
+    userPoolId: process.env.REACT_APP_USER_POOL_ID,
+    userPoolWebClientId: process.env.REACT_APP_USER_POOL_WEB_CLIENT_ID
+  } : undefined
 });
 
 const App: React.FC = () => (
@@ -45,6 +54,15 @@ const App: React.FC = () => (
           />
 
           <Route exact path="/create-account" component={AuthCreateAccount} />
+
+          <Route exact path="/register" component={AuthRegister} />
+          <Route
+            exact
+            path="/register-confirm"
+            component={AuthRegisterConfirm}
+          />
+          <Route exact path="/reset-password" component={AuthPasswordReset} />
+          <Route exact path="/create-password" component={AuthCreatePassword} />
 
           <Route exact path="/terms" component={TermsOfUse} />
 

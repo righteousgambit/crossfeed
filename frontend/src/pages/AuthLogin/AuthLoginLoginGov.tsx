@@ -8,7 +8,7 @@ interface Errors extends Partial<FormData> {
   global?: string;
 }
 
-export const AuthLogin: React.FC = () => {
+export const AuthLoginLoginGov: React.FC = () => {
   const { apiPost } = useAuthContext();
   const [errors, setErrors] = useState<Errors>({});
 
