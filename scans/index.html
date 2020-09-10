@@ -146,11 +146,20 @@
         
         <h3 id="what-is-crossfeed">What is Crossfeed?</h3>
 
-<h3 id="what-kind-of-traffic-can-i-expect-to-see-from-cisa-crossfeed">What kind of traffic can I expect to see from CISA Crossfeed?</h3>
+<p>Crossfeed is an asset discovery tool that can be used to monitor and gather information about vulnerabilities on public-facing websites. Crossfeed is developed as an open-source tool, and its code is available on GitHub <a href="https://github.com/cisagov/crossfeed">here</a>.</p>
 
-<h3 id="how-can-i-verify-that-traffic-is-coming-from-cisa-crossfeed">How can I verify that traffic is coming from CISA Crossfeed?</h3>
+<h3 id="how-can-i-verify-that-traffic-is-coming-from-cisas-instance-of-crossfeed">How can I verify that traffic is coming from CISA’s instance of Crossfeed?</h3>
+
+<p>All requests sent from CISA’s instance of Crossfeed (except for requests to third-party APIs) are sent with the following User-Agent:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Mozilla/5.0 (compatible; Crossfeed/1.0; +https://cisagov.github.io/crossfeed/scans)
+</code></pre></div></div>
+
+<p>All requests are also signed in order to allow verification that the request was actually sent from CISA Crossfeed. To verify a request, please note down the request URL, “Date” header and the “Signature” header, and send them to <a href="mailto:support@crossfeed.cyber.dhs.gov">support@crossfeed.cyber.dhs.gov</a>.</p>
 
 <h3 id="who-can-i-contact-with-further-questions">Who can I contact with further questions?</h3>
+
+<p>Please contact <a href="mailto:support@crossfeed.cyber.dhs.gov">support@crossfeed.cyber.dhs.gov</a>.</p>
 
       </main>
     </div>
