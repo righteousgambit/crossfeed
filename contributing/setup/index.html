@@ -280,7 +280,9 @@
       <li><code class="language-plaintext highlighter-rouge">docker-compose up --build</code></li>
     </ul>
   </li>
-  <li>Generate DB schema:
+  <li>
+    <p>Generate DB schema:</p>
+
     <ul>
       <li><code class="language-plaintext highlighter-rouge">cd backend &amp;&amp; npm run syncdb</code></li>
       <li>(run <code class="language-plaintext highlighter-rouge">npm run syncdb -- -d dangerouslyforce</code> to drop and recreate)</li>
@@ -298,6 +300,8 @@
   </li>
   <li>Install <a href="https://www.robinwieruch.de/how-to-use-prettier-vscode">Prettier</a> in your dev environment to format code on save.</li>
 </ol>
+
+<p>If you want to view a local version of Kibana, you should first comment out the “kib” section of <code class="language-plaintext highlighter-rouge">docker-compose.yml</code> and then navigate to <a href="http://localhost:5601">http://localhost:5601</a>.</p>
 
 <h3 id="running-the-scheduler-lambda-function-locally">Running the scheduler lambda function locally</h3>
 
@@ -363,7 +367,7 @@ and check their logs with <code class="language-plaintext highlighter-rouge">doc
 
 <h2 id="documentation">Documentation</h2>
 
-<p>The documentation files are stored in the <code class="language-plaintext highlighter-rouge">docs</code> directory and served from a Jekyll site. To work on this, you can run:</p>
+<p>The documentation files are stored in the <code class="language-plaintext highlighter-rouge">docs</code> directory and served from a Jekyll site. To work on this, you should first comment out the “docs” section of <code class="language-plaintext highlighter-rouge">docker-compose.yml</code> and then run:</p>
 
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker-compose up docs
 </code></pre></div></div>
