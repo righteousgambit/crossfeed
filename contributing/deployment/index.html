@@ -343,6 +343,11 @@ pem-jwk private.pem <span class="o">&gt;</span> private.jwk
   <li><code class="language-plaintext highlighter-rouge">/crossfeed/staging/REACT_APP_TERMS_VERSION</code></li>
 </ul>
 
+<p>You must also <a href="https://docs.aws.amazon.com/elasticsearch-service/latest/developerguide/slr-es.html#create-slr">create a service-linked role for Amazon ES</a> (this only needs to be created once per AWS account):</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>aws iam create-service-linked-role <span class="nt">--aws-service-name</span> es.amazonaws.com
+</code></pre></div></div>
+
 <p>Then, run <code class="language-plaintext highlighter-rouge">cp stage.config .env</code> and change the variables in <code class="language-plaintext highlighter-rouge">.env</code> to use a bucket you have access to to store state.</p>
 
 <p>Make sure you configure the default AWS profile using <code class="language-plaintext highlighter-rouge">aws configure</code> , or set the <code class="language-plaintext highlighter-rouge">AWS_PROFILE</code> environment variable in <code class="language-plaintext highlighter-rouge">.env</code>.</p>
