@@ -95,9 +95,7 @@ export const handler = async (commandOptions: CommandOptions) => {
               }
             })
           ]);
-          console.log(service);
           if (service.vulns) {
-            console.log('creating vulnerability');
             const vulns: Vulnerability[] = [];
             for (const cve in service.vulns) {
               vulns.push(
